@@ -11,7 +11,10 @@ import (
 	"text/tabwriter"
 )
 
-var write = flag.Bool("w", false, "write result to file instead of stdout")
+var (
+	write = flag.Bool("w", false, "write result to file instead of stdout")
+	debug = flag.Bool("d", false, "enable debug mode")
+)
 
 func readFile(filename string) string {
 	b, _ := ioutil.ReadFile(filename)
@@ -19,7 +22,16 @@ func readFile(filename string) string {
 }
 
 func format(w io.Writer, content string) {
-	tabWriter := tabwriter.NewWriter(w, 0, 4, 4, ' ', 0)
+	var (
+		mode    uint = 0
+		padchar byte = ' '
+	)
+	if *debug {
+		mode = tabwriter.Debug
+		padchar = '-'
+	}
+
+	tabWriter := tabwriter.NewWriter(w, 0, 4, 4, padchar, mode)
 	fmt.Fprint(tabWriter, content)
 	tabWriter.Flush()
 }
