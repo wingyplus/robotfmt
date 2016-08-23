@@ -11,9 +11,7 @@ import (
 	"text/tabwriter"
 )
 
-var (
-	write = flag.Bool("w", false, "write result to file instead of stdout")
-)
+var write = flag.Bool("w", false, "write result to file instead of stdout")
 
 func readFile(filename string) string {
 	b, _ := ioutil.ReadFile(filename)
@@ -30,10 +28,9 @@ func main() {
 	flag.Parse()
 
 	filename := flag.Args()[0]
-	content := readFile(filename)
 
 	re := regexp.MustCompile(" {2,}")
-	content = re.ReplaceAllString(content, "\t")
+	content := re.ReplaceAllString(readFile(filename), "\t")
 
 	var buf bytes.Buffer
 	format(&buf, content)
