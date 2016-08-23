@@ -31,8 +31,11 @@ func format(w io.Writer, content string) {
 		padchar = '-'
 	}
 
+	re := regexp.MustCompile(" {2,}|\t\t|\t ")
+	s := re.ReplaceAllString(content, "\t")
+
 	tabWriter := tabwriter.NewWriter(w, 0, 4, 4, padchar, mode)
-	fmt.Fprint(tabWriter, content)
+	fmt.Fprint(tabWriter, s)
 	tabWriter.Flush()
 }
 
@@ -41,11 +44,8 @@ func main() {
 
 	filename := flag.Args()[0]
 
-	re := regexp.MustCompile(" {2,}")
-	content := re.ReplaceAllString(readFile(filename), "\t")
-
 	var buf bytes.Buffer
-	format(&buf, content)
+	format(&buf, readFile(filename))
 
 	if *write {
 		ioutil.WriteFile(filename, buf.Bytes(), 0644)
