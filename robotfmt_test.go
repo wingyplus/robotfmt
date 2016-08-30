@@ -47,6 +47,19 @@ Case 1	 1	2
 Case 1                1         2
 `,
 	},
+	{
+		name: "format multiple tabs to 4 padding spaces",
+		in: `
+*** Test Cases ***
+Test Multiple Tabs To 4 Padding Spaces
+			Keyword Step
+`,
+		out: `
+*** Test Cases ***
+Test Multiple Tabs To 4 Padding Spaces
+    Keyword Step
+`,
+	},
 }
 
 func TestFormat(t *testing.T) {
