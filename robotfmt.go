@@ -31,7 +31,7 @@ func format(w io.Writer, content string) {
 		padchar = '-'
 	}
 
-	re := regexp.MustCompile(` {2,}|\t{2,}|\t `)
+	re := regexp.MustCompile(`(?: |\t){2,}|\t `)
 	s := re.ReplaceAllString(content, "\t")
 
 	tabWriter := tabwriter.NewWriter(w, 0, 4, 4, padchar, mode)
