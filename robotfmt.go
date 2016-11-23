@@ -31,6 +31,10 @@ func format(w io.Writer, content string) {
 		padchar = '-'
 	}
 
+	formatWithMode(w, content, padchar, mode)
+}
+
+func formatWithMode(w io.Writer, content string, padchar byte, mode uint) {
 	re := regexp.MustCompile(`(?: |\t){2,}|\t `)
 	s := re.ReplaceAllString(content, "\t")
 
