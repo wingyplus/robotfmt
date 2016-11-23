@@ -42,7 +42,15 @@ func format(w io.Writer, content string) {
 func main() {
 	flag.Parse()
 
-	filename := flag.Args()[0]
+	args := flag.Args()
+	if len(args) != 1 {
+		fmt.Fprintln(os.Stdout, "robotfmt [options] filename")
+		fmt.Fprintln(os.Stdout, "Options:")
+		flag.PrintDefaults()
+		os.Exit(255)
+	}
+
+	filename := args[0]
 
 	var buf bytes.Buffer
 	format(&buf, readFile(filename))
