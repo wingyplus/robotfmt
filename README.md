@@ -1,4 +1,4 @@
-# Robot Framework Formatter
+# Robot Framework Formatter (Deprecated)
 
 The command `robotfmt` print formatted code by given filename.
 By default this command print the result to standard output. When
